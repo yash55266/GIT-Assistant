@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Remove the forced light gray background */
+body {
+  margin: 0;
+  padding: 0;
+  /* Dark background by default to prevent "white flashes" on load */
+  background-color: #09090b; 
+  color: #e4e4e7;
+  overflow: hidden; /* Prevents double scrollbars */
+}
+
+/* Custom scrollbar for that premium "Code Editor" feel */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
