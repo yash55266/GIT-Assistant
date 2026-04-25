@@ -83,6 +83,24 @@ class GitService:
 
         nodes = [{"id": f, "label": f.split('/')[-1]} for f in files]
         return {"nodes": nodes, "edges": edges}
+    def search_code_for_keywords(self, query: str):
+        if not self.repo_path:
+            return []
+            
+        results = []
+        files = self.get_code_files()
+        
+        # Simple keyword extraction from the user query
+        keywords = [k.lower() for k in query.split() if len(k) > 3]
+        
+        for file in files:
+            content = self.read_file(file)
+            # If the file contains any of our keywords, it's a candidate
+            if any(key in content.lower() for key in keywords):
+                # Return the file and a small snippet of the content for the AI to review
+                results.append({"path": file, "snippet": content[:2000]}) # Limit snippet size
+        
+        return results
 
     def create_branch_and_commit(self, file_path: str, optimized_code: str, commit_message: str):
         if not self.current_repo:

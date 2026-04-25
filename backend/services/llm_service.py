@@ -57,6 +57,26 @@ def analyze_and_optimize(file_content: str) -> tuple[str, str]:
         code = "\n".join(code.split("\n")[:-1])
 
     return summary, code.strip()
+def locate_intent(user_query: str, candidates: list):
+    context = "\n".join([f"FILE: {c['path']}\nCONTENT: {c['snippet']}..." for c in candidates])
+    
+    prompt = f"""You are a code navigator. A developer wants to find something in their code.
+    User Request: "{user_query}"
+    
+    Based on the following files, find the exact file and the specific line or code block that needs to be changed.
+    
+    Format your response EXACTLY like this:
+    FILE: <filepath>
+    EXPLANATION: <briefly explain why this is the spot>
+    CODE_SNIPPET: <the specific line or block of code to change>
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "system", "content": prompt}, {"role": "user", "content": context}],
+        temperature=0
+    )
+    return response.choices[0].message.content
 def generate_unit_tests(file_path: str, file_content: str) -> tuple[str, str, str]:
     prompt = f"""You are an expert QA and software engineer. You are writing unit tests for a file named `{file_path}`.
     

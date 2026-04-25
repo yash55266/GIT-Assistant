@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from services.llm_service import analyze_and_optimize, generate_unit_tests
 import logging
+from services import llm_service
 from models import TestGenerationResponse # Add this to your imports at the top
 
 from models import ConnectRepoRequest, RepoResponse, AnalyzeRequest, AnalyzeResponse, CommitRequest, CommitResponse
@@ -79,3 +80,14 @@ def get_dependencies():
         return git_service.get_dependency_graph()
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/intent-search")
+def intent_search(req: dict): # Simple dict for { "query": "..." }
+    query = req.get("query")
+    candidates = git_service.search_code_for_keywords(query)
+    
+    if not candidates:
+        raise HTTPException(status_code=404, detail="No matching code found.")
+        
+    result = llm_service.locate_intent(query, candidates)
+    return {"result": result}
