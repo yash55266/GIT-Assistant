@@ -1,4 +1,4 @@
-Project Motivation
+**Project Motivation**:
 I built Architect AI because I wanted to understand how Claude Code‑style tools work internally — and to see if I could build one myself.
 I experimented with multiple strategies, refined retrieval logic, and tested the system across real codebases until it behaved reliably.
 
