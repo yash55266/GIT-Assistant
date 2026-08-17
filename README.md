@@ -8,7 +8,7 @@ I enjoy finding tasks I can automate with AI and turning those ideas into workin
 Architect AI is a fully local autonomous coding assistant inspired by tools like Claude Code.
 I built it to understand how coding agents work internally — and to see if I could design one myself with lower token usage, safer edits, and predictable behavior.
 
-The system uses:
+**The system uses:**
 
 Two‑agent workflow (Architect → Coder)
 
@@ -24,7 +24,8 @@ I tested it across multiple real codebases to confirm reliability and correctnes
 
 
 
-Key Features
+**Key Features**
+
 🔍 Surgical Context Retrieval — Only loads the exact code needed
 
 🗂️ File‑tree Mapping — Understands project structure
@@ -38,3 +39,25 @@ Key Features
 ⚡ Low Token Usage — Designed to be efficient and local
 
 🖥️ Full Stack Implementation — React + FastAPI
+
+
+**Tech Stack**
+
+**Frontend**
+
+React,
+TypeScript,
+TailwindCSS,
+React Flow,
+
+**Backend**
+
+Python,
+FastAPI,
+Uvicorn,
+
+**AI / Retrieval**
+
+RAG,
+Custom dependency graph builder,
+Two‑agent prompting system,
